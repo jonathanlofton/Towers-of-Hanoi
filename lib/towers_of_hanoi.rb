@@ -40,5 +40,26 @@
 # methods named above.
 
 class TowersOfHanoi
+  attr_reader :towers
 
+  def initialize
+    @towers = [[3,2,1],[],[]]
+  end
+
+  def move(from_tower, to_tower)
+    @towers[to_tower] << @towers[from_tower].pop
+  end
+
+  def valid_move?(from_tower, to_tower)
+    return false if @towers[from_tower].empty?
+    @towers[to_tower].each do |position|
+      next if position.nil?
+      return false if position < @towers[from_tower].pop
+    end
+    true
+  end
+
+  def won?
+    return true if @towers[1].length == 3 || @towers[2].length == 3
+  end
 end
